@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  font-family:Verdana, Geneva, Tahoma, sans-serif
 }
 
 .logo {
@@ -36,10 +37,6 @@
 
 
 
-#root {
-  margin: 0;
-  width: 100%;
-}
 
 .card {
   padding: 2em;
@@ -53,14 +50,30 @@
   display: grid;
   grid-template-columns: repeat(6, 150px);
   width: 100%;
-
+  gap: 20px;
 }
 
 .card {
   width: 150px;
   height: 150px;
-  padding: 0;
+  box-sizing: border-box;
+  padding: 10px;
   display: grid;
   place-items: center;
   font-weight: 500;
+  border-radius: 20px;
+  font-size: 20px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 }
+
+.card:hover {
+  transform: scale(1.1);
+}
+
+.card:active {
+  transform: scale(0.9);
+  transition: transform 0.1s ease;
+}
+

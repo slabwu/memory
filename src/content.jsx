@@ -8,7 +8,7 @@ export default function Content() {
     let score = seen.length
 
     let colours = []
-    let size = 12
+    let size = 18
     for (let i = 0; i < size; i++) {
         colours.push(getColour())
     }
@@ -25,10 +25,10 @@ export default function Content() {
         if (seen.includes(colour)) {
             setSeen([])
         } else {
-            console.log([...seen, colour])
             if (score >= bestScore.current) bestScore.current = score + 1
             setSeen([...seen, colour])
         }
+        setData(shuffle(data))
     }
 
     let list
@@ -39,8 +39,10 @@ export default function Content() {
 
     return (
         <main>
-            <h2>Score: {score}</h2>
-            <h2>Best Score: {bestScore.current}</h2>
+            <div className='scoreContainer'>
+                <h2>Score: {score}</h2>
+                <h2>Best: {bestScore.current}</h2>
+            </div>
              <div className='cardContainer'>{data ? list : 'Loading colours...'}</div>
         </main>
     )
@@ -65,4 +67,16 @@ async function fetchColour(colour) {
     let response = await fetch(`https://www.thecolorapi.com/id?hex=${colour}`)
     let json = await response.json()
     return json
+}
+
+function shuffle(array) {
+    let currentIndex = array.length
+    let randomIndex
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex--
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
+    }
+
+    return array
 }
