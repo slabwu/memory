@@ -49,7 +49,7 @@
   color: #888;
 }
 
-main {
+.cardContainer {
   display: grid;
   grid-template-columns: repeat(6, 150px);
   width: 100%;
