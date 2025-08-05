@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import Card from './card.jsx'
+import getColour from './colour.jsx'
 
 export default function Content() {
     const [data, setData] = useState(null)
@@ -8,7 +9,7 @@ export default function Content() {
     let score = seen.length
 
     let colours = []
-    let size = 18
+    let size = 3
     for (let i = 0; i < size; i++) {
         colours.push(getColour())
     }
@@ -39,6 +40,7 @@ export default function Content() {
 
     return (
         <main>
+            <h2>Don't click any colour more than once! Can you get all eighteen?"</h2>
             <div className='scoreContainer'>
                 <h2><b>Score:</b> {score}</h2>
                 <h2><b>Best:</b> {bestScore.current}</h2>
@@ -46,15 +48,6 @@ export default function Content() {
              <div className='cardContainer'>{data ? list : 'Loading colours...'}</div>
         </main>
     )
-}
-
-function getColour() {
-    const hex = '0123456789ABCDEF'
-    let output = ''
-    for (let i = 0; i < 6; i++) {
-        output += hex.charAt(Math.floor(Math.random() * 16))
-    }
-    return output
 }
 
 async function useData(array) {
