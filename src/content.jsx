@@ -7,9 +7,10 @@ export default function Content() {
     const [seen, setSeen] = useState([])
     const bestScore = useRef(0)
     let score = seen.length
-
     let colours = []
-    let size = 3
+    let size = 18
+    let win = bestScore.current === size
+
     for (let i = 0; i < size; i++) {
         colours.push(getColour())
     }
@@ -38,9 +39,16 @@ export default function Content() {
         list = data.map((colour) => <Card colour={colour} pickColour={pickColour}></Card>)
     }
 
+    let text
+    if (win) {
+        text = '🎉 You won! 🎉'.split('').map(letter => <span style={{color: `#${getColour()}`}}>{letter}</span>)
+    } else {
+        text = "Don't click any colour more than once! Can you get all eighteen?"
+    }
+
     return (
         <main>
-            <h2>Don't click any colour more than once! Can you get all eighteen?"</h2>
+            <h2>{text}</h2>
             <div className='scoreContainer'>
                 <h2><b>Score:</b> {score}</h2>
                 <h2><b>Best:</b> {bestScore.current}</h2>
