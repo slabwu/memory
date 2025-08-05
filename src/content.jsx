@@ -40,8 +40,8 @@ export default function Content() {
     return (
         <main>
             <div className='scoreContainer'>
-                <h2>Score: {score}</h2>
-                <h2>Best: {bestScore.current}</h2>
+                <h2><b>Score:</b> {score}</h2>
+                <h2><b>Best:</b> {bestScore.current}</h2>
             </div>
              <div className='cardContainer'>{data ? list : 'Loading colours...'}</div>
         </main>
