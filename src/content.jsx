@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import Card from './card.jsx'
 
 export default function Content() {
     const [data, setData] = useState(null)
@@ -19,14 +20,12 @@ export default function Content() {
 
     let list
     if (data) {
-        console.log(data)
-        list = data.map((colour) => {
-        return <img key={colour.hex.value} src={colour.image.named} />;
-    });
+        console.log(data[0])
+        list = data.map((colour) => <Card colour={colour}></Card>)
     }
 
     return (
-        <main>{data && list}</main>
+        <main>{data ? list : 'Loading colours...'}</main>
     )
 }
 
