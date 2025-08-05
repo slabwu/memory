@@ -1,14 +1,32 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Content() {
-    const [date, setData] = useState(null)
+    const [data, setData] = useState(null)
     
-    for (let i = 0; i < 10; i++) {
-        console.log(getColour())
+    let colours = []
+    let size = 12
+    for (let i = 0; i < size; i++) {
+        colours.push(getColour())
+    }
+
+    useEffect(() => {
+        async function fetchData() {
+            let colourData = await useData(colours)
+            setData(colourData)
+        }
+        fetchData()
+    }, [])
+
+    let list
+    if (data) {
+        console.log(data)
+        list = data.map((colour) => {
+        return <img key={colour.hex.value} src={colour.image.named} />;
+    });
     }
 
     return (
-        <main>Main</main>
+        <main>{data && list}</main>
     )
 }
 
@@ -19,4 +37,16 @@ function getColour() {
         output += hex.charAt(Math.floor(Math.random() * 16))
     }
     return output
+}
+
+async function useData(array) {
+    let requests = array.map(fetchColour)
+    let dataList = await Promise.all(requests)
+    return dataList
+}
+
+async function fetchColour(colour) {
+    let response = await fetch(`https://www.thecolorapi.com/id?hex=${colour}`)
+    let json = await response.json()
+    return json
 }
