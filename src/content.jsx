@@ -50,9 +50,9 @@ export default function Content() {
             <div className='scoreContainer'>
                 <h2><b>Score:</b> {score}</h2>
                 <h2><b>Best:</b> {bestScore.current}</h2>
+                <button class='reset' onClick={fetchData}>↺</button>
             </div>
              <div className='cardContainer'>{data ? list : <Loader></Loader>}</div>
-             <button onClick={fetchData}>Reset</button>
         </main>
     )
 }
