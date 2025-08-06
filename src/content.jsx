@@ -29,12 +29,11 @@ export default function Content() {
             if (score >= bestScore.current) bestScore.current = score + 1
             setSeen([...seen, colour])
         }
-        setData(shuffle(data))
     }
 
     let list
     if (data) {
-        list = data.map((colour) => <Card key={colour.hex.value} colour={colour} pickColour={pickColour}></Card>)
+        list = shuffle(data.map((colour) => <Card key={colour.hex.value} colour={colour} pickColour={pickColour}></Card>))
     }
 
     let text
