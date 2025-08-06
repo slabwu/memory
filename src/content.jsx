@@ -11,12 +11,14 @@ export default function Content() {
     let size = 18
     let win = bestScore.current === size
 
-    useEffect(() => {
+    async function fetchData() {
         setData(null)
-        async function fetchData() {
-            let colourData = await useData(getColourArray(size))
-            setData(colourData)
-        }
+        let colourData = await useData(getColourArray(size))
+        console.log(colourData)
+        setData(colourData)
+    }
+
+    useEffect(() => {
         fetchData()
     }, [])
 
@@ -50,14 +52,7 @@ export default function Content() {
                 <h2><b>Best:</b> {bestScore.current}</h2>
             </div>
              <div className='cardContainer'>{data ? list : <Loader></Loader>}</div>
-             <button onClick={() => {
-                setData(null)
-                async function fetchData() {
-                    let colourData = await useData(getColourArray(size))
-                    setData(colourData)
-                }
-                fetchData()
-             }}>Reset</button>
+             <button onClick={fetchData}>Reset</button>
         </main>
     )
 }
