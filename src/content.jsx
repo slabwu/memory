@@ -13,6 +13,8 @@ export default function Content() {
 
     async function fetchData() {
         setData(null)
+        setSeen([])
+        bestScore.current = 0
         let colourData = await useData(getColourArray(size))
         console.log(colourData)
         setData(colourData)
