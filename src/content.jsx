@@ -1,23 +1,20 @@
 import { useState, useEffect, useRef } from 'react'
 import Card from './card.jsx'
 import getColour from './colour.jsx'
+import Loader from './loader.jsx'
 
 export default function Content() {
     const [data, setData] = useState(null)
     const [seen, setSeen] = useState([])
     const bestScore = useRef(0)
     let score = seen.length
-    let colours = []
     let size = 18
     let win = bestScore.current === size
 
-    for (let i = 0; i < size; i++) {
-        colours.push(getColour())
-    }
-
     useEffect(() => {
+        setData(null)
         async function fetchData() {
-            let colourData = await useData(colours)
+            let colourData = await useData(getColourArray(size))
             setData(colourData)
         }
         fetchData()
@@ -35,8 +32,7 @@ export default function Content() {
 
     let list
     if (data) {
-        console.log(data[0])
-        list = data.map((colour) => <Card colour={colour} pickColour={pickColour}></Card>)
+        list = data.map((colour) => <Card key={colour.hex.value} colour={colour} pickColour={pickColour}></Card>)
     }
 
     let text
@@ -53,9 +49,25 @@ export default function Content() {
                 <h2><b>Score:</b> {score}</h2>
                 <h2><b>Best:</b> {bestScore.current}</h2>
             </div>
-             <div className='cardContainer'>{data ? list : 'Loading colours...'}</div>
+             <div className='cardContainer'>{data ? list : <Loader></Loader>}</div>
+             <button onClick={() => {
+                setData(null)
+                async function fetchData() {
+                    let colourData = await useData(getColourArray(size))
+                    setData(colourData)
+                }
+                fetchData()
+             }}>Reset</button>
         </main>
     )
+}
+                
+function getColourArray(size) {
+    let output = []
+        for (let i = 0; i < size; i++) {
+        output.push(getColour())
+    }
+    return output
 }
 
 async function useData(array) {
