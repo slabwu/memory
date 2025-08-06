@@ -33,7 +33,7 @@ export default function Content() {
 
     let list
     if (data) {
-        list = shuffle(data.map((colour) => <Card key={colour.hex.value} colour={colour} pickColour={pickColour}></Card>))
+        list = shuffle(data).map((colour, index) => <Card key={colour.hex.value + index} colour={colour} pickColour={pickColour}></Card>)
     }
 
     let text
